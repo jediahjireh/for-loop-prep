@@ -1,15 +1,14 @@
 "use client";
 
 import { useState } from "react";
-
-import type { ExerciseType } from "@/lib/exercises-data";
-import { StatsProvider } from "@/components/StatsProvider";
-import { DashboardSidebar } from "@/components/DashboardSidebar";
-import { ExerciseView } from "@/components/ExerciseView";
 import { SidebarProvider } from "@/components/ui/sidebar";
+import { DashboardSidebar } from "@/components/DashboardSidebar";
 import { ExerciseList } from "@/components/ExerciseList";
+import { ExerciseView } from "@/components/ExerciseView";
+import { ExerciseType } from "@/lib/exercises-data";
+import { StatsProvider } from "@/components/StatsProvider";
 
-export default function Home() {
+export function ExerciseDashboard() {
   const [selectedExercise, setSelectedExercise] = useState<ExerciseType | null>(
     null
   );
@@ -17,9 +16,9 @@ export default function Home() {
   return (
     <StatsProvider>
       <SidebarProvider>
-        <div className="flex min-h-screen">
+        <div className="flex h-screen overflow-hidden">
           <DashboardSidebar onSelectExercise={setSelectedExercise} />
-          <main className="flex-1 overflow-auto">
+          <div className="flex-1 overflow-auto">
             {selectedExercise ? (
               <ExerciseView
                 exercise={selectedExercise}
@@ -28,7 +27,7 @@ export default function Home() {
             ) : (
               <ExerciseList onSelectExercise={setSelectedExercise} />
             )}
-          </main>
+          </div>
         </div>
       </SidebarProvider>
     </StatsProvider>
